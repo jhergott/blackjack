@@ -21,6 +21,10 @@ public class DeckShoe {
         }
     }
 
+    public ArrayList<Card> getShoe() {
+        return shoe;
+    }
+
     public void newShoe(){
         shoe.clear();
         for(int i = 0; i < 13; i++){

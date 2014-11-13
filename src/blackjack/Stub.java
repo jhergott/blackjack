@@ -31,8 +31,8 @@ public class Stub extends JFrame{
         setSize(500,500);
     }
 
-    //fix below
-    /*class TestListener implements ActionListener{
+
+    class TestListener implements ActionListener{
 
         public void actionPerformed(ActionEvent event){
             Card cardDealt2 = deckShoe.dealCard();
@@ -42,9 +42,9 @@ public class Stub extends JFrame{
             cardLabel = new JLabel(cardImage);
             panel.add(cardLabel);
             add(panel);
-            repaint();
+            createComponents();
         }
-    }*/
+    }
 
 
     public void createComponents(){
@@ -58,7 +58,6 @@ public class Stub extends JFrame{
         cardForImage = cardDealt.getCardImage();
         System.out.println(cardDealt.getCardValue());
 
-        int cardNumber = 12;
         hit = new JButton("HIT");
         stand = new JButton("STAND");
         doubleDown = new JButton("DOUBLE DOWN");
@@ -67,7 +66,7 @@ public class Stub extends JFrame{
         bet.addActionListener(listener);
 
         cashOut = new JButton("Cash Out");
-        //cardImage = new ImageIcon("cards/" + cardNumber +".png");
+        //cardImage = new ImageIcon("cards/1.png");
         cardImage = new ImageIcon(cardForImage);
         cardLabel = new JLabel(cardImage);
 
