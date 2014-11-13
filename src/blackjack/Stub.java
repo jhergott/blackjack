@@ -13,6 +13,7 @@ import java.awt.*;
 public class Stub extends JFrame{
 
     private JPanel panel;
+    private JPanel panel2;
     private JButton hit;
     private JButton stand;
     private JButton doubleDown;
@@ -28,7 +29,9 @@ public class Stub extends JFrame{
 
     public void createComponents(){
         panel = new JPanel();
+        panel2 = new JPanel(new GridLayout());
         panel.setBackground(Color.GREEN.darker().darker());
+
 
         DeckShoe deckShoe = new DeckShoe();
         String cardForImage = deckShoe.dealCard().getCardImage();
@@ -43,12 +46,12 @@ public class Stub extends JFrame{
         cardImage = new ImageIcon(cardForImage);
         cardLabel = new JLabel(cardImage);
 
-
-        panel.add(hit);
-        panel.add(stand);
-        panel.add(doubleDown);
-        panel.add(bet);
-        panel.add(cashOut);
+        panel.add(panel2);
+        panel2.add(hit);
+        panel2.add(stand);
+        panel2.add(doubleDown);
+        panel2.add(bet);
+        panel2.add(cashOut);
         panel.add(cardLabel);
         add(panel);
     }

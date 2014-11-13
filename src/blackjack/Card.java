@@ -15,6 +15,10 @@ public class Card {
         this.suit = suit;
     }
 
+    public Card getCard(){
+        return this;
+    }
+
     public int getCardValue(){
         //return the value of the card for blackjack
         return 0;//FIXXXXX
