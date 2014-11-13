@@ -1,5 +1,8 @@
 package blackjack;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ag
@@ -7,24 +10,31 @@ package blackjack;
  * Time: 4:59 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Stub {
+public class Stub extends JFrame{
 
-    public static void main(String[] args) {
+    private JPanel panel;
+    private JButton hit;
+    private JButton stand;
+    private JButton doubleDown;
+    private JButton bet;
+    private JButton cashOut;
+    private ImageIcon cardImage;
+    private JLabel cardLabel;
 
-        DeckShoe deckShoe = new DeckShoe();
+    public Stub(){
+        createComponents();
+        setSize(500,500);
+    }
 
-        for(int i = 0; i < 300; i++){
-            deckShoe.dealCard();
-        }
+    public void createComponents(){
+        panel = new JPanel();
+        panel.setBackground(Color.GREEN.darker().darker());
 
-        System.out.println("Rest of Deck:");
-        deckShoe.showDeck();
-
-
-        System.out.println("New Shoe:");
-        deckShoe.newShoe();
-        deckShoe.showDeck();
+        cardImage = new ImageIcon("cards/15.png");
+        cardLabel = new JLabel(cardImage);
 
 
+        panel.add(cardLabel);
+        add(panel);
     }
 }

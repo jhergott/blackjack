@@ -41,9 +41,9 @@ public class DeckShoe {
     }
 
     //test function to see deck
-    public void showDeck(){
+    /*public void showDeck(){
         for(Card c : shoe){
             System.out.println(c.getCard());
         }
-    }
+    }*/
 }
