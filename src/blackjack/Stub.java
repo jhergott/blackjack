@@ -48,4 +48,5 @@ public class Stub extends JFrame{
         panel.add(cardLabel);
         add(panel);
     }
+
 }
