@@ -8,5 +8,23 @@ package blackjack;
  * To change this template use File | Settings | File Templates.
  */
 public class Stub {
-    //nothing implemented here
+
+    public static void main(String[] args) {
+
+        DeckShoe deckShoe = new DeckShoe();
+
+        for(int i = 0; i < 300; i++){
+            deckShoe.dealCard();
+        }
+
+        System.out.println("Rest of Deck:");
+        deckShoe.showDeck();
+
+
+        System.out.println("New Shoe:");
+        deckShoe.newShoe();
+        deckShoe.showDeck();
+
+
+    }
 }
