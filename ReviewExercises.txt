@@ -2,6 +2,44 @@
 # Use this file to answer Review Exercises from the Big Java textbook
 #########################################################################
 
+R13.1 Terms
+a)  Recursion is the process of repetition of a certain function until a termination state is reached
+b)  Iteration is the process of going through each item once in an structure
+c)  Infinite recursion is also known as an infinite loop and it occurs when the recursive structure
+    does not direct towards a termination state and a terminations state is never reached.
+d)  A recursive helper function is used for example to print out the states of the recursive function
+
+R13.2 Smallest value
+min = infinity
+MinValue(A[1..n], i) //i is index in array
+if(i == n)
+    return min
+else
+    if(A[i] < min)
+        min = A[i]
+    return MinValue(A[1..n], i + 1)
+
+R13.3 Sort array of numbers
+Sort(A[1..n], j)
+if(j == n)
+    return A[1..n]
+min = MinValue(A[1..n],j)
+Swap(min,indexOfMin)
+return MinValue(A[1..n],j + 1)
+
+R13.6 Exponents recursively
+Exponents(x,n)
+if(n == 0)
+    return 1
+if(n == 1)
+    return x
+return x * Exponents(x,n-1)
+
+R13.8 Factorial recursively
+Factorial(n)
+if(n == 1)
+    return n
+return n * Factorial(n - 1)
 
 
 
