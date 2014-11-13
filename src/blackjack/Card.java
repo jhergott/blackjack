@@ -20,8 +20,14 @@ public class Card {
     }
 
     public int getCardValue(){
-        //return the value of the card for blackjack
-        return 0;//FIXXXXX
+        int card = rank + 1;
+        if(card == 1){
+            return 1;//or 10
+        }else if(card >= 10){
+            return 10;
+        }else{
+            return card;
+        }
     }
 
     public String getCardImage(){
@@ -29,7 +35,7 @@ public class Card {
 
         String imageIcon = "";
         if(suit.equals("C")) {
-            switch (rank) {
+            switch (rank + 1) {
                 case 1: imageIcon = "cards/1.png";
                     break;
                 case 2: imageIcon = "cards/49.png";
@@ -61,7 +67,7 @@ public class Card {
 
             }
         }else if(suit.equals("S")){
-            switch (rank) {
+            switch (rank + 1) {
                 case 1: imageIcon = "cards/2.png";
                     break;
                 case 2: imageIcon = "cards/50.png";
@@ -92,7 +98,7 @@ public class Card {
                     break;
             }
         }else if(suit.equals("H")){
-            switch (rank) {
+            switch (rank + 1) {
                 case 1: imageIcon = "cards/3.png";
                     break;
                 case 2: imageIcon = "cards/51.png";
@@ -123,7 +129,7 @@ public class Card {
                     break;
             }
         }else{//"Diamonds"
-            switch (rank) {
+            switch (rank + 1) {
                 case 1: imageIcon = "cards/4.png";
                     break;
                 case 2: imageIcon = "cards/52.png";

@@ -2,6 +2,8 @@ package blackjack;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,13 +21,31 @@ public class Stub extends JFrame{
     private JButton doubleDown;
     private JButton bet;
     private JButton cashOut;
+    private String cardForImage;
     private ImageIcon cardImage;
     private JLabel cardLabel;
+    private DeckShoe deckShoe;
 
     public Stub(){
         createComponents();
         setSize(500,500);
     }
+
+    //fix below
+    /*class TestListener implements ActionListener{
+
+        public void actionPerformed(ActionEvent event){
+            Card cardDealt2 = deckShoe.dealCard();
+            cardForImage = cardDealt2.getCardImage();
+            System.out.println(cardDealt2.getCardValue());
+            cardImage = new ImageIcon(cardForImage);
+            cardLabel = new JLabel(cardImage);
+            panel.add(cardLabel);
+            add(panel);
+            repaint();
+        }
+    }*/
+
 
     public void createComponents(){
         panel = new JPanel();
@@ -33,14 +53,19 @@ public class Stub extends JFrame{
         panel.setBackground(Color.GREEN.darker().darker());
 
 
-        DeckShoe deckShoe = new DeckShoe();
-        String cardForImage = deckShoe.dealCard().getCardImage();
+        deckShoe = new DeckShoe();
+        Card cardDealt = deckShoe.dealCard();
+        cardForImage = cardDealt.getCardImage();
+        System.out.println(cardDealt.getCardValue());
 
         int cardNumber = 12;
         hit = new JButton("HIT");
         stand = new JButton("STAND");
         doubleDown = new JButton("DOUBLE DOWN");
         bet = new JButton("Bet");
+        ActionListener listener = new TestListener();
+        bet.addActionListener(listener);
+
         cashOut = new JButton("Cash Out");
         //cardImage = new ImageIcon("cards/" + cardNumber +".png");
         cardImage = new ImageIcon(cardForImage);
