@@ -30,13 +30,17 @@ public class Stub extends JFrame{
         panel = new JPanel();
         panel.setBackground(Color.GREEN.darker().darker());
 
+        DeckShoe deckShoe = new DeckShoe();
+        String cardForImage = deckShoe.dealCard().getCardImage();
+
         int cardNumber = 12;
         hit = new JButton("HIT");
         stand = new JButton("STAND");
         doubleDown = new JButton("DOUBLE DOWN");
         bet = new JButton("Bet");
         cashOut = new JButton("Cash Out");
-        cardImage = new ImageIcon("cards/" + cardNumber +".png");
+        //cardImage = new ImageIcon("cards/" + cardNumber +".png");
+        cardImage = new ImageIcon(cardForImage);
         cardLabel = new JLabel(cardImage);
 
 

@@ -33,17 +33,11 @@ public class DeckShoe {
         }
     }
 
-    public String dealCard(){
+    public Card dealCard(){
         int cardIndex = (int)(Math.random() * shoe.size());
         Card card = shoe.get(cardIndex);
         shoe.remove(cardIndex);
         return card.getCard();
     }
 
-    //test function to see deck
-    /*public void showDeck(){
-        for(Card c : shoe){
-            System.out.println(c.getCard());
-        }
-    }*/
 }

@@ -15,137 +15,138 @@ public class Card {
         this.suit = suit;
     }
 
-    public String getCard(){
-        return rank + suit;
+    public int getCardValue(){
+        //return the value of the card for blackjack
+        return 0;//FIXXXXX
     }
 
-    public Icon getCardImage(){
+    public String getCardImage(){
         String card = rank + suit;
 
-        ImageIcon imageIcon = new ImageIcon("cards/b1fv.png");
+        String imageIcon = "";
         if(suit.equals("C")) {
             switch (rank) {
-                case 1: imageIcon = new ImageIcon("cards/1.png");
+                case 1: imageIcon = "cards/1.png";
                     break;
-                case 2: imageIcon = new ImageIcon("cards/49.png");
+                case 2: imageIcon = "cards/49.png";
                     break;
-                case 3: imageIcon = new ImageIcon("cards/45.png");
+                case 3: imageIcon = "cards/45.png";
                     break;
-                case 4: imageIcon = new ImageIcon("cards/41.png");
+                case 4: imageIcon = "cards/41.png";
                     break;
-                case 5: imageIcon = new ImageIcon("cards/37.png");
+                case 5: imageIcon = "cards/37.png";
                     break;
-                case 6: imageIcon = new ImageIcon("cards/33.png");
+                case 6: imageIcon = "cards/33.png";
                     break;
-                case 7: imageIcon = new ImageIcon("cards/29.png");
+                case 7: imageIcon = "cards/29.png";
                     break;
-                case 8: imageIcon = new ImageIcon("cards/25.png");
+                case 8: imageIcon = "cards/25.png";
                     break;
-                case 9: imageIcon = new ImageIcon("cards/21.png");
+                case 9: imageIcon = "cards/21.png";
                     break;
-                case 10: imageIcon = new ImageIcon("cards/17.png");
+                case 10: imageIcon = "cards/17.png";
                     break;
-                case 11: imageIcon = new ImageIcon("cards/13.png");
+                case 11: imageIcon = "cards/13.png";
                     break;
-                case 12: imageIcon = new ImageIcon("cards/9.png");
+                case 12: imageIcon = "cards/9.png";
                     break;
-                case 13: imageIcon = new ImageIcon("cards/5.png");
+                case 13: imageIcon = "cards/5.png";
                     break;
-                default: imageIcon = new ImageIcon("cards/b1fv.png");
+                default: imageIcon = "cards/b1fv.png";
                     break;
 
             }
         }else if(suit.equals("S")){
             switch (rank) {
-                case 1: imageIcon = new ImageIcon("cards/2.png");
+                case 1: imageIcon = "cards/2.png";
                     break;
-                case 2: imageIcon = new ImageIcon("cards/50.png");
+                case 2: imageIcon = "cards/50.png";
                     break;
-                case 3: imageIcon = new ImageIcon("cards/46.png");
+                case 3: imageIcon = "cards/46.png";
                     break;
-                case 4: imageIcon = new ImageIcon("cards/42.png");
+                case 4: imageIcon = "cards/42.png";
                     break;
-                case 5: imageIcon = new ImageIcon("cards/38.png");
+                case 5: imageIcon = "cards/38.png";
                     break;
-                case 6: imageIcon = new ImageIcon("cards/34.png");
+                case 6: imageIcon = "cards/34.png";
                     break;
-                case 7: imageIcon = new ImageIcon("cards/30.png");
+                case 7: imageIcon = "cards/30.png";
                     break;
-                case 8: imageIcon = new ImageIcon("cards/26.png");
+                case 8: imageIcon = "cards/26.png";
                     break;
-                case 9: imageIcon = new ImageIcon("cards/22.png");
+                case 9: imageIcon = "cards/22.png";
                     break;
-                case 10: imageIcon = new ImageIcon("cards/18.png");
+                case 10: imageIcon = "cards/18.png";
                     break;
-                case 11: imageIcon = new ImageIcon("cards/14.png");
+                case 11: imageIcon = "cards/14.png";
                     break;
-                case 12: imageIcon = new ImageIcon("cards/10.png");
+                case 12: imageIcon = "cards/10.png";
                     break;
-                case 13: imageIcon = new ImageIcon("cards/6.png");
+                case 13: imageIcon = "cards/6.png";
                     break;
-                default: imageIcon = new ImageIcon("cards/b1fv.png");
+                default: imageIcon = "cards/b1fv.png";
                     break;
             }
         }else if(suit.equals("H")){
             switch (rank) {
-                case 1: imageIcon = new ImageIcon("cards/3.png");
+                case 1: imageIcon = "cards/3.png";
                     break;
-                case 2: imageIcon = new ImageIcon("cards/51.png");
+                case 2: imageIcon = "cards/51.png";
                     break;
-                case 3: imageIcon = new ImageIcon("cards/47.png");
+                case 3: imageIcon = "cards/47.png";
                     break;
-                case 4: imageIcon = new ImageIcon("cards/43.png");
+                case 4: imageIcon = "cards/43.png";
                     break;
-                case 5: imageIcon = new ImageIcon("cards/39.png");
+                case 5: imageIcon = "cards/39.png";
                     break;
-                case 6: imageIcon = new ImageIcon("cards/35.png");
+                case 6: imageIcon = "cards/35.png";
                     break;
-                case 7: imageIcon = new ImageIcon("cards/31.png");
+                case 7: imageIcon = "cards/31.png";
                     break;
-                case 8: imageIcon = new ImageIcon("cards/27.png");
+                case 8: imageIcon = "cards/27.png";
                     break;
-                case 9: imageIcon = new ImageIcon("cards/23.png");
+                case 9: imageIcon = "cards/23.png";
                     break;
-                case 10: imageIcon = new ImageIcon("cards/19.png");
+                case 10: imageIcon = "cards/19.png";
                     break;
-                case 11: imageIcon = new ImageIcon("cards/15.png");
+                case 11: imageIcon = "cards/15.png";
                     break;
-                case 12: imageIcon = new ImageIcon("cards/11.png");
+                case 12: imageIcon = "cards/11.png";
                     break;
-                case 13: imageIcon = new ImageIcon("cards/5.png");
+                case 13: imageIcon = "cards/5.png";
                     break;
-                default: imageIcon = new ImageIcon("cards/b1fv.png");
+                default: imageIcon = "cards/b1fv.png";
                     break;
             }
         }else{//"Diamonds"
             switch (rank) {
-                case 1: imageIcon = new ImageIcon("cards/4.png");
+                case 1: imageIcon = "cards/4.png";
                     break;
-                case 2: imageIcon = new ImageIcon("cards/52.png");
+                case 2: imageIcon = "cards/52.png";
                     break;
-                case 3: imageIcon = new ImageIcon("cards/48.png");
+                case 3: imageIcon = "cards/48.png";
                     break;
-                case 4: imageIcon = new ImageIcon("cards/44.png");
+                case 4: imageIcon = "cards/44.png";
                     break;
-                case 5: imageIcon = new ImageIcon("cards/40.png");
+                case 5: imageIcon = "cards/40.png";
                     break;
-                case 6: imageIcon = new ImageIcon("cards/36.png");
+                case 6: imageIcon = "cards/36.png";
                     break;
-                case 7: imageIcon = new ImageIcon("cards/32.png");
+                case 7: imageIcon = "cards/32.png";
                     break;
-                case 8: imageIcon = new ImageIcon("cards/28.png");
+                case 8: imageIcon = "cards/28.png";
                     break;
-                case 9: imageIcon = new ImageIcon("cards/24.png");
+                case 9: imageIcon = "cards/24.png";
                     break;
-                case 10: imageIcon = new ImageIcon("cards/20.png");
+                case 10: imageIcon = "cards/20.png";
                     break;
-                case 11: imageIcon = new ImageIcon("cards/16.png");
+                case 11: imageIcon = "cards/16.png";
                     break;
-                case 12: imageIcon = new ImageIcon("cards/12.png");
+                case 12: imageIcon = "cards/12.png";
                     break;
-                case 13: imageIcon = new ImageIcon("cards/6.png");
+                case 13: imageIcon = "cards/6.png";
                     break;
-                default: imageIcon = new ImageIcon("cards/b1fv.png");
+                default: imageIcon = "cards/b1fv.png";
                     break;
             }
         }
