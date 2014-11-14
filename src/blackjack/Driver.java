@@ -16,7 +16,7 @@ public class Driver {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        Scanner in = new Scanner(System.in);
+        //Scanner in = new Scanner(System.in);
 
         //DeckShoe deckShoe = new DeckShoe();
         //Bankroll bankroll = new Bankroll();

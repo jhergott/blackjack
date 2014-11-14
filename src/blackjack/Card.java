@@ -15,6 +15,10 @@ public class Card {
         this.suit = suit;
     }
 
+    public int getRank(){
+        return rank;
+    }
+
     public Card getCard(){
         return this;
     }
@@ -22,7 +26,7 @@ public class Card {
     public int getCardValue(){
         int card = rank + 1;
         if(card == 1){
-            return 1;//or 10
+            return 11;//or 1
         }else if(card >= 10){
             return 10;
         }else{
@@ -62,7 +66,7 @@ public class Card {
                     break;
                 case 13: imageIcon = "cards/5.png";
                     break;
-                default: imageIcon = "cards/b1fv.png";
+                default: imageIcon = "cards/b2fv.png";
                     break;
 
             }
@@ -94,7 +98,7 @@ public class Card {
                     break;
                 case 13: imageIcon = "cards/6.png";
                     break;
-                default: imageIcon = "cards/b1fv.png";
+                default: imageIcon = "cards/b2fv.png";
                     break;
             }
         }else if(suit.equals("H")){
@@ -125,7 +129,7 @@ public class Card {
                     break;
                 case 13: imageIcon = "cards/5.png";
                     break;
-                default: imageIcon = "cards/b1fv.png";
+                default: imageIcon = "cards/b2fv.png";
                     break;
             }
         }else{//"Diamonds"
@@ -156,7 +160,7 @@ public class Card {
                     break;
                 case 13: imageIcon = "cards/6.png";
                     break;
-                default: imageIcon = "cards/b1fv.png";
+                default: imageIcon = "cards/b2fv.png";
                     break;
             }
         }
