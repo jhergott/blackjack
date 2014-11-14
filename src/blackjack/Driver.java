@@ -45,22 +45,25 @@ public class Driver {
         boolean dealerBusted = false;
         boolean playerBusted = false;
         int playerHits = 0;
+        System.out.println("Hit or Stay or Double?");
+        String decision = in.next();
+        if(decision.equals("d")) {
+            bankroll.bet(bet * 2);
+            playerHits = deckShoe.dealCard().getCardValue();
+            playerHand += playerHits;
+            System.out.println("Double Down: " + playerHits);
+            System.out.println("Player: " + playerHand);
+            stay = true;
+        }
         while(!stay){
-            System.out.println("Hit or Stay or Double?");
-            String decision = in.next();
+            System.out.println("Hit or Stay?");
+            decision = in.next();
             if(decision.equals("h")){
                 playerHits = deckShoe.dealCard().getCardValue();
                 playerHand += playerHits;
                 System.out.println("Hit: " + playerHits);
                 System.out.println("Player: " + playerHand);
-            }else if(decision.equals("d")) {
-                bankroll.bet(bet*2);
-                playerHits = deckShoe.dealCard().getCardValue();
-                playerHand += playerHits;
-                System.out.println("Double Down: " + playerHits);
-                System.out.println("Player: " + playerHand);
-                stay = true;
-            }else{
+            }else {
                 stay = true;
             }
             if(playerHand > 21){
@@ -71,27 +74,31 @@ public class Driver {
             }
         }
 
-        int dealerHits = 0;
-        while(cpuHand < 17){
-            dealerHits = deckShoe.dealCard().getCardValue();
-            cpuHand += dealerHits;
-            System.out.println(dealerHits);
-            System.out.println("Dealer: " + cpuHand);
-            if(cpuHand > 21){
-                System.out.println("Dealer Busted");
-                dealerBusted = true;
-                bankroll.win();
+        if(!playerBusted) {
+            int dealerHits = 0;
+            while (cpuHand < 17) {
+                dealerHits = deckShoe.dealCard().getCardValue();
+                cpuHand += dealerHits;
+                System.out.println(dealerHits);
+                System.out.println("Dealer: " + cpuHand);
+                if (cpuHand > 21) {
+                    System.out.println("Dealer Busted");
+                    dealerBusted = true;
+                    bankroll.win();
+                }
             }
         }
 
-        if(cpuHand == playerHand){
-            System.out.println("Push");
-        }else if(playerHand > cpuHand){
-            bankroll.win();
-            System.out.println("Player WINS");
-        }else{
-            bankroll.loss();
-            System.out.println("Player LOSS");
+        if(!playerBusted && !dealerBusted) {
+            if (cpuHand == playerHand) {
+                System.out.println("Push");
+            } else if (playerHand > cpuHand) {
+                bankroll.win();
+                System.out.println("Player WINS");
+            } else {
+                bankroll.loss();
+                System.out.println("Player LOSS");
+            }
         }
 
         System.out.println(bankroll.getBankroll());
