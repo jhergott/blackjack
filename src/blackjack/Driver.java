@@ -11,20 +11,20 @@ public class Driver {
     public static void main(String[] args) {
 
         //for Stub
-        /*JFrame frame = new Stub();
+        JFrame frame = new Stub();
         frame.setTitle("BlackJack");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);*/
+        frame.setVisible(true);
 
         Scanner in = new Scanner(System.in);
 
-        DeckShoe deckShoe = new DeckShoe();
-        Bankroll bankroll = new Bankroll();
+        //DeckShoe deckShoe = new DeckShoe();
+        //Bankroll bankroll = new Bankroll();
 
-        int playerHand = 0;
-        int cpuHand = 0;
+        //int playerHand = 0;
+        //int cpuHand = 0;
 
-        int dealerCard = deckShoe.dealCard().getCardValue();
+        /*int dealerCard = deckShoe.dealCard().getCardValue();
         cpuHand += dealerCard;
 
         int playerCard1 = deckShoe.dealCard().getCardValue();
@@ -103,6 +103,6 @@ public class Driver {
 
         System.out.println(bankroll.getBankroll());
 
-
+*/
     }
 }
