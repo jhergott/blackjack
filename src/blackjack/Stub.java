@@ -15,14 +15,20 @@ import java.awt.event.ActionListener;
 public class Stub extends JFrame{
 
     private JPanel mainPanel;
-    private JPanel dealerPanel;
+    private JPanel hitStayDoublePanel;
+    private JPanel betPanel;
     private JPanel playerPanel;
+    private JPanel dealerCardsPanel;
+    private JPanel playerCardsPanel;
     private JTextField betBox;
     private JButton hit;
     private JButton stand;
     private JButton doubleDown;
+    private JLabel betLabel;
+    private JLabel bankrollLabel;
+    private JLabel reshuffling;
+    private JLabel handOutcome;
     private JButton bet;
-    private JButton cashOut;
     private String cardForImage;
     private ImageIcon cardImage;
     private JLabel cardLabel;
@@ -37,18 +43,27 @@ public class Stub extends JFrame{
     private boolean playerBusted;
     private boolean dealerBusted;
     private boolean canDoubleDown;
+    private boolean canBet;
 
     public Stub(){
         createComponents();
         setSize(500,500);
         this.stay = false;
+        this.canBet = true;
     }
 
     public void createComponents(){
+        deckShoe = new DeckShoe();
+        bankroll = new Bankroll();
+
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.GREEN.darker().darker());
-        dealerPanel = new JPanel();
+        hitStayDoublePanel = new JPanel();
+        betPanel = new JPanel();
         playerPanel = new JPanel();
+        dealerCardsPanel = new JPanel();
+        playerCardsPanel = new JPanel();
+
 
         hit = new JButton("HIT");
         ActionListener hitListener = new HitButton();
@@ -68,42 +83,50 @@ public class Stub extends JFrame{
         bet.addActionListener(betListener);
         betBox.addActionListener(betListener);
 
-        cashOut = new JButton("CASH OUT");
+        betLabel = new JLabel("Wager:");
+        bankrollLabel = new JLabel("Bankroll: $" + bankroll.getBankroll());
+        reshuffling = new JLabel("        ");
+        handOutcome = new JLabel("    ");
 
-        deckShoe = new DeckShoe();
-        bankroll = new Bankroll();
 
         cardForImage = deckShoe.dealCard().getCardImage();
         cardImage = new ImageIcon(cardForImage);
         cardLabel = new JLabel(cardImage);
 
-        mainPanel.add(dealerPanel);
-        mainPanel.add(playerPanel);
-        dealerPanel.add(hit);
-        dealerPanel.add(stand);
-        dealerPanel.add(doubleDown);
-        playerPanel.add(betBox);
-        playerPanel.add(bet);
-        playerPanel.add(cashOut);
-        playerPanel.add(cardLabel);
+        //mainPanel.add(dealerPanel);
+        //mainPanel.add(playerPanel);
+        hitStayDoublePanel.add(hit);
+        hitStayDoublePanel.add(stand);
+        hitStayDoublePanel.add(doubleDown);
+        betPanel.add(betLabel);
+        betPanel.add(betBox);
+        betPanel.add(bet);
+        playerPanel.add(handOutcome);
+        playerPanel.add(bankrollLabel);
+        playerPanel.add(reshuffling);
+        mainPanel.add(cardLabel);
         add(mainPanel);
 
     }
 
     class BetButton implements ActionListener{
         public void actionPerformed(ActionEvent event){
-            betAmount = Double.parseDouble(betBox.getText());
-            bankroll.bet(betAmount);
-            System.out.println(betBox.getText());
-            newHand();
+            if(canBet) {
+                betAmount = Double.parseDouble(betBox.getText());
+                bankroll.bet(betAmount);
+                System.out.println(betBox.getText());
+                newHand();
+            }
+            canBet = false;
         }
     }
 
     public void newHand(){
         if(deckShoe.getShoe().size() < 50){
             deckShoe.newShoe();
-            System.out.println("Reshuffling");
+            reshuffling.setText("NEW SHOE");
         }
+        handOutcome.setText("    ");
         canDoubleDown = true;
         playerBusted = false;
         dealerBusted = false;
@@ -134,6 +157,7 @@ public class Stub extends JFrame{
                 playerBusted = true;
                 stay = true;
                 bankroll.loss();
+                handOutcome.setText("LOSS");
                 endHand();
             }else {
                 canDoubleDown = false;
@@ -174,6 +198,7 @@ public class Stub extends JFrame{
                 System.out.println("Dealer Busted");
                 dealerBusted = true;
                 bankroll.win();
+                handOutcome.setText("WIN ");
             }
         }
         endHand();
@@ -181,24 +206,26 @@ public class Stub extends JFrame{
 
     public void winner(){
         if (dealerScore == playerScore) {
-            System.out.println("Push");
+            handOutcome.setText("PUSH");
         } else if (playerScore > dealerScore) {
             bankroll.win();
-            System.out.println("Player WINS");
+            handOutcome.setText("WIN ");
         } else {
             bankroll.loss();
-            System.out.println("Player LOSS");
+            handOutcome.setText("LOSS");
         }
-        System.out.println("BANKROLL: " + bankroll.getBankroll());
+        bankrollLabel.setText("Bankroll: $" + bankroll.getBankroll());
     }
 
 
     public void endHand(){
         if(playerBusted || dealerBusted){
-            System.out.println(bankroll.getBankroll());
+            bankrollLabel.setText("Bankroll: $" + bankroll.getBankroll());
         }else {
             winner();
         }
+        canBet = true;
+        reshuffling.setText("");
     }
 
     public void endPlayerTurn(){
