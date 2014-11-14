@@ -18,6 +18,8 @@ public class Stub extends JFrame{
     private JPanel centerPanel;
     private JPanel leftPanel;
     private JPanel rightPanel;
+    private JPanel middlePanel;
+    private JPanel middleCenterPanel;
     private JPanel bottomPanel;
     private JPanel hitStayDoublePanel;
     private JPanel betPanel;
@@ -58,6 +60,8 @@ public class Stub extends JFrame{
     private JLabel playerCard4Label;
     private JLabel playerCard5Label;
     private JLabel playerCard6Label;
+    private JLabel dealerScoreLabel;
+    private JLabel playerScoreLabel;
     private DeckShoe deckShoe;
     private Bankroll bankroll;
     private Card dealerFaceDown;
@@ -111,14 +115,16 @@ public class Stub extends JFrame{
         leftPanel.setBackground(Color.GREEN.darker());
         bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setBackground(Color.RED);
+        middlePanel = new JPanel(new BorderLayout());
+        middlePanel.setBackground(Color.GREEN.darker().darker());
         dealerCardsPanel = new JPanel();
         playerCardsPanel = new JPanel();
         hitStayDoublePanel = new JPanel();
         hitStayDoublePanel.setBackground(Color.GREEN.darker());
-        betPanel = new JPanel(new GridLayout(3,1));
+        betPanel = new JPanel(new GridLayout(9,1));
         betPanel.setBackground(Color.GREEN.darker());
-        playerPanel = new JPanel(new GridLayout(3,1));
-        playerPanel.setBackground(Color.GREEN.darker());
+        playerPanel = new JPanel(new GridLayout(2,1));
+        playerPanel.setBackground(Color.GREEN.darker().darker());
         dealerCardsPanel = new JPanel();
         dealerCardsPanel.setBackground(Color.GREEN.darker().darker());
         playerCardsPanel = new JPanel();
@@ -147,6 +153,8 @@ public class Stub extends JFrame{
         reshuffling = new JLabel("        ");
         handOutcome = new JLabel("    ");
 
+        dealerScoreLabel = new JLabel("Dealer Score: " + dealerScore);
+        playerScoreLabel = new JLabel("Player Score: " + playerScore);
 
         cardForImage = "cards/b2fv.png";//faceDown
         dealerFaceDownImage = new ImageIcon(cardForImage);
@@ -166,20 +174,27 @@ public class Stub extends JFrame{
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
         mainPanel.add(leftPanel,BorderLayout.LINE_START);
-        mainPanel.add(rightPanel,BorderLayout.LINE_END);
-        bottomPanel.add(hitStayDoublePanel, BorderLayout.CENTER);
+        //mainPanel.add(rightPanel,BorderLayout.LINE_END);
+        //bottomPanel.add(hitStayDoublePanel, BorderLayout.CENTER);
         leftPanel.add(betPanel, BorderLayout.PAGE_END);
-        rightPanel.add(playerPanel, BorderLayout.PAGE_END);
-        hitStayDoublePanel.add(hit);
-        hitStayDoublePanel.add(stand);
-        hitStayDoublePanel.add(doubleDown);
+        //rightPanel.add(playerPanel, BorderLayout.PAGE_END);
+        //hitStayDoublePanel.add(hit);
+        //hitStayDoublePanel.add(stand);
+        //hitStayDoublePanel.add(doubleDown);
+        betPanel.add(reshuffling);
+        betPanel.add(handOutcome);
+        betPanel.add(bankrollLabel);
         betPanel.add(betLabel);
         betPanel.add(betBox);
         betPanel.add(bet);
-        playerPanel.add(bankrollLabel);
-        playerPanel.add(handOutcome);
-        playerPanel.add(reshuffling);
+        betPanel.add(hit);
+        betPanel.add(stand);
+        betPanel.add(doubleDown);
+        playerPanel.add(dealerScoreLabel);
+        playerPanel.add(playerScoreLabel);
         centerPanel.add(dealerCardsPanel, BorderLayout.PAGE_START);
+        centerPanel.add(middlePanel, BorderLayout.CENTER);
+        middlePanel.add(playerPanel, BorderLayout.LINE_START);
         centerPanel.add(playerCardsPanel, BorderLayout.PAGE_END);
         dealerCardsPanel.add(dealerCardDownLabel);
         dealerCardsPanel.add(dealerCardUpLabel);
@@ -201,11 +216,14 @@ public class Stub extends JFrame{
         public void actionPerformed(ActionEvent event){
             if(canBet) {
                 betAmount = Double.parseDouble(betBox.getText());
-                bankroll.bet(betAmount);
-                System.out.println(betBox.getText());
-                newHand();
+                if(betAmount <= bankroll.getBankroll() && betAmount > 0) {
+                    bankroll.bet(betAmount);
+                    newHand();
+                }
             }
-            canBet = false;
+            if(betAmount <= bankroll.getBankroll() && betAmount > 0) {
+                canBet = false;
+            }
         }
     }
 
@@ -243,7 +261,6 @@ public class Stub extends JFrame{
         cardForImage = dealerFaceUp.getCardImage();
         dealerFaceUpImage = new ImageIcon(cardForImage);
         dealerCardUpLabel.setIcon(dealerFaceUpImage);
-        System.out.println("C1: " + dealerCard);
 
         //deal first card to player
         playerCard1 = deckShoe.dealCard();
@@ -252,7 +269,6 @@ public class Stub extends JFrame{
         cardForImage = playerCard1.getCardImage();
         playerCard1Image = new ImageIcon(cardForImage);
         playerCard1Label.setIcon(playerCard1Image);
-        System.out.println("P1: " + playerCard);
 
         //deal second card to player
         playerCard2 = deckShoe.dealCard();
@@ -261,9 +277,9 @@ public class Stub extends JFrame{
         cardForImage = playerCard2.getCardImage();
         playerCard2Image = new ImageIcon(cardForImage);
         playerCard2Label.setIcon(playerCard2Image);
-        System.out.println("P2: " + playerCard);
 
-
+        dealerScoreLabel.setText("Dealer Score: " + dealerScore);
+        playerScoreLabel.setText("Player Score: " + playerScore);
     }
 
     class HitButton implements ActionListener{
@@ -277,8 +293,7 @@ public class Stub extends JFrame{
                     cardForImage = playerCard3.getCardImage();
                     playerCard3Image = new ImageIcon(cardForImage);
                     playerCard3Label.setIcon(playerCard3Image);
-                    System.out.println("Hit: " + playerCard);
-                    System.out.println("Player: " + playerScore);
+                    playerScoreLabel.setText("Player Score: " + playerScore);
                 } else if (nHits == 2) {
                     playerCard4 = deckShoe.dealCard();
                     playerCard = playerCard4.getCardValue();
@@ -286,8 +301,7 @@ public class Stub extends JFrame{
                     cardForImage = playerCard4.getCardImage();
                     playerCard4Image = new ImageIcon(cardForImage);
                     playerCard4Label.setIcon(playerCard4Image);
-                    System.out.println("Hit: " + playerCard);
-                    System.out.println("Player: " + playerScore);
+                    playerScoreLabel.setText("Player Score: " + playerScore);
                 } else if (nHits == 3) {
                     playerCard5 = deckShoe.dealCard();
                     playerCard = playerCard5.getCardValue();
@@ -295,8 +309,7 @@ public class Stub extends JFrame{
                     cardForImage = playerCard5.getCardImage();
                     playerCard5Image = new ImageIcon(cardForImage);
                     playerCard5Label.setIcon(playerCard5Image);
-                    System.out.println("Hit: " + playerCard);
-                    System.out.println("Player: " + playerScore);
+                    playerScoreLabel.setText("Player Score: " + playerScore);
                 } else {//4
                     playerCard6 = deckShoe.dealCard();
                     playerCard = playerCard6.getCardValue();
@@ -304,17 +317,15 @@ public class Stub extends JFrame{
                     cardForImage = playerCard6.getCardImage();
                     playerCard6Image = new ImageIcon(cardForImage);
                     playerCard6Label.setIcon(playerCard6Image);
-                    System.out.println("Hit: " + playerCard);
-                    System.out.println("Player: " + playerScore);
+                    playerScoreLabel.setText("Player Score: " + playerScore);
                 }
 
                 if (playerScore > 21) {
-                    System.out.println("Busted");
                     playerBusted = true;
                     stay = true;
                     canStay = false;
                     bankroll.loss();
-                    handOutcome.setText("LOSS");
+                    handOutcome.setText("LOST $" + betAmount);
                     endHand();
                 } else {
                     canDoubleDown = false;
@@ -336,8 +347,8 @@ public class Stub extends JFrame{
     class DoubleDownButton implements ActionListener{
         public void actionPerformed(ActionEvent event){
             if(canDoubleDown) {
-                bankroll.bet(betAmount * 2);
-                System.out.println(betAmount * 2);
+                betAmount = Math.min(betAmount * 2,bankroll.getBankroll());//double for less if you cant double
+                bankroll.bet(betAmount);
 
                 //deal double down card to player
                 playerCard3 = deckShoe.dealCard();
@@ -346,10 +357,19 @@ public class Stub extends JFrame{
                 cardForImage = playerCard3.getCardImage();
                 playerCard3Image = new ImageIcon(cardForImage);
                 playerCard3Label.setIcon(playerCard3Image);
-                System.out.println("Double Down: " + playerCard);
-                System.out.println("Player: " + playerScore);
-                stay = true;
-                endPlayerTurn();
+                playerScoreLabel.setText("Player Score: " + playerScore);
+
+                if (playerScore > 21) {
+                    playerBusted = true;
+                    stay = true;
+                    canStay = false;
+                    bankroll.loss();
+                    handOutcome.setText("LOST $" + betAmount);
+                    endHand();
+                } else {
+                    canDoubleDown = false;
+                    endPlayerTurn();
+                }
             }
         }
     }
@@ -365,8 +385,7 @@ public class Stub extends JFrame{
                 cardForImage = dealerFaceDown.getCardImage();
                 dealerFaceDownImage = new ImageIcon(cardForImage);
                 dealerCardDownLabel.setIcon(dealerFaceDownImage);
-                System.out.println("Dealer: " + dealerCard);
-                System.out.println("Dealer score: " + dealerScore);
+                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
             }else if(nDealerHits == 2){
                 dealerCard3 = deckShoe.dealCard();
                 dealerCard = dealerCard3.getCardValue();
@@ -374,8 +393,7 @@ public class Stub extends JFrame{
                 cardForImage = dealerCard3.getCardImage();
                 dealerCard3Image = new ImageIcon(cardForImage);
                 dealerCard3Label.setIcon(dealerCard3Image);
-                System.out.println("Dealer: " + dealerCard);
-                System.out.println("Dealer score: " + dealerScore);
+                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
             }else if(nDealerHits == 3){
                 dealerCard4 = deckShoe.dealCard();
                 dealerCard = dealerCard4.getCardValue();
@@ -383,8 +401,7 @@ public class Stub extends JFrame{
                 cardForImage = dealerCard4.getCardImage();
                 dealerCard4Image = new ImageIcon(cardForImage);
                 dealerCard4Label.setIcon(dealerCard4Image);
-                System.out.println("Dealer: " + dealerCard);
-                System.out.println("Dealer score: " + dealerScore);
+                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
             }else if(nDealerHits == 4){
                 dealerCard5 = deckShoe.dealCard();
                 dealerCard = dealerCard5.getCardValue();
@@ -392,8 +409,7 @@ public class Stub extends JFrame{
                 cardForImage = dealerCard5.getCardImage();
                 dealerCard5Image = new ImageIcon(cardForImage);
                 dealerCard5Label.setIcon(dealerCard5Image);
-                System.out.println("Dealer: " + dealerCard);
-                System.out.println("Dealer score: " + dealerScore);
+                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
             }else{//5
                 dealerCard6 = deckShoe.dealCard();
                 dealerCard = dealerCard6.getCardValue();
@@ -401,16 +417,14 @@ public class Stub extends JFrame{
                 cardForImage = dealerCard6.getCardImage();
                 dealerCard6Image = new ImageIcon(cardForImage);
                 dealerCard6Label.setIcon(dealerCard6Image);
-                System.out.println("Dealer: " + dealerCard);
-                System.out.println("Dealer score: " + dealerScore);
+                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
             }
 
 
             if (dealerScore > 21) {
-                System.out.println("Dealer Busted");
                 dealerBusted = true;
                 bankroll.win();
-                handOutcome.setText("WIN ");
+                handOutcome.setText("WON $" + betAmount);
             }
         }
         endHand();
@@ -418,13 +432,13 @@ public class Stub extends JFrame{
 
     public void winner(){
         if (dealerScore == playerScore) {
-            handOutcome.setText("PUSH");
+            handOutcome.setText("PUSHED");
         } else if (playerScore > dealerScore) {
             bankroll.win();
-            handOutcome.setText("WIN ");
+            handOutcome.setText("WON $" + betAmount);
         } else {
             bankroll.loss();
-            handOutcome.setText("LOSS");
+            handOutcome.setText("LOST $" + betAmount);
         }
         bankrollLabel.setText("Bankroll: $" + bankroll.getBankroll());
     }
