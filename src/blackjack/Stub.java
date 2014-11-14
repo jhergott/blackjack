@@ -36,6 +36,7 @@ public class Stub extends JFrame{
     private boolean stay;
     private boolean playerBusted;
     private boolean dealerBusted;
+    private boolean canDoubleDown;
 
     public Stub(){
         createComponents();
@@ -99,6 +100,11 @@ public class Stub extends JFrame{
     }
 
     public void newHand(){
+        if(deckShoe.getShoe().size() < 50){
+            deckShoe.newShoe();
+            System.out.println("Reshuffling");
+        }
+        canDoubleDown = true;
         playerBusted = false;
         dealerBusted = false;
         stay = false;
@@ -130,6 +136,7 @@ public class Stub extends JFrame{
                 bankroll.loss();
                 endHand();
             }else {
+                canDoubleDown = false;
                 endPlayerTurn();
             }
         }
@@ -144,14 +151,16 @@ public class Stub extends JFrame{
 
     class DoubleDownButton implements ActionListener{
         public void actionPerformed(ActionEvent event){
-            bankroll.bet(betAmount * 2);
-            System.out.println(betAmount*2);
-            playerCard = deckShoe.dealCard().getCardValue();
-            playerScore += playerCard;
-            System.out.println("Double Down: " + playerCard);
-            System.out.println("Player: " + playerScore);
-            stay = true;
-            endPlayerTurn();
+            if(canDoubleDown) {
+                bankroll.bet(betAmount * 2);
+                System.out.println(betAmount * 2);
+                playerCard = deckShoe.dealCard().getCardValue();
+                playerScore += playerCard;
+                System.out.println("Double Down: " + playerCard);
+                System.out.println("Player: " + playerScore);
+                stay = true;
+                endPlayerTurn();
+            }
         }
     }
 
