@@ -92,6 +92,7 @@ public class Stub extends JFrame{
     private boolean canHit;
     private boolean canStay;
     private boolean canBet;
+    private boolean blackJack;
 
     public Stub(){
         createComponents();
@@ -101,6 +102,7 @@ public class Stub extends JFrame{
         this.canDoubleDown = false;
         this.canHit = false;
         this.canStay = false;
+        this.blackJack = false;
     }
 
     public void createComponents(){
@@ -255,6 +257,7 @@ public class Stub extends JFrame{
         playerBusted = false;
         dealerBusted = false;
         stay = false;
+        blackJack = false;
         playerScore = 0;
         dealerScore = 0;
 
@@ -271,7 +274,6 @@ public class Stub extends JFrame{
 
         //deal first card to player
         playerCard1 = deckShoe.dealCard();
-        //playerCard1 = new Card(0,"S");
         playerCard = playerCard1.getCardValue();
         playerScore += playerCard;
         cardForImage = playerCard1.getCardImage();
@@ -283,7 +285,6 @@ public class Stub extends JFrame{
 
         //deal second card to player
         playerCard2 = deckShoe.dealCard();
-        //playerCard2 = new Card(0,"S");
         playerCard = playerCard2.getCardValue();
         if(playerCard == 11){
             nPlayerAces++;
@@ -302,7 +303,12 @@ public class Stub extends JFrame{
         playerScoreLabel.setText("Player Score: " + playerScore);
 
         if(playerScore == 21){
-            blackJack();
+            betAmount = betAmount * 1.5;
+            bankroll.bet(betAmount);
+            blackJack = true;
+            canBet = true;
+            canDoubleDown = false;
+            canHit = false;
         }
     }
 
@@ -430,98 +436,94 @@ public class Stub extends JFrame{
 
     public void dealerTurn(){
         nDealerHits = 0;
-        while (dealerScore < 17 || (dealerScore <= 17 && nDealerAces > 0)) {
-            nDealerHits++;
-            if(nDealerHits == 1){
-                dealerFaceDown = deckShoe.dealCard();
-                dealerCard = dealerFaceDown.getCardValue();
-                if(dealerCard == 11){
-                    nDealerAces++;
+        if(!blackJack) {
+            while (dealerScore < 17 || (dealerScore <= 17 && nDealerAces > 0)) {
+                nDealerHits++;
+                if (nDealerHits == 1) {
+                    dealerFaceDown = deckShoe.dealCard();
+                    dealerCard = dealerFaceDown.getCardValue();
+                    if (dealerCard == 11) {
+                        nDealerAces++;
+                    }
+                    dealerScore += dealerCard;
+                    if (dealerScore > 21 && nDealerAces > 0) {
+                        dealerScore = dealerScore - 10;
+                        nDealerAces--;
+                    }
+                    cardForImage = dealerFaceDown.getCardImage();
+                    dealerFaceDownImage = new ImageIcon(cardForImage);
+                    dealerCardDownLabel.setIcon(dealerFaceDownImage);
+                    dealerScoreLabel.setText("Dealer Score: " + dealerScore);
+                } else if (nDealerHits == 2) {
+                    dealerCard3 = deckShoe.dealCard();
+                    dealerCard = dealerCard3.getCardValue();
+                    if (dealerCard == 11) {
+                        nDealerAces++;
+                    }
+                    dealerScore += dealerCard;
+                    if (dealerScore > 21 && nDealerAces > 0) {
+                        dealerScore = dealerScore - 10;
+                        nDealerAces--;
+                    }
+                    cardForImage = dealerCard3.getCardImage();
+                    dealerCard3Image = new ImageIcon(cardForImage);
+                    dealerCard3Label.setIcon(dealerCard3Image);
+                    dealerScoreLabel.setText("Dealer Score: " + dealerScore);
+                } else if (nDealerHits == 3) {
+                    dealerCard4 = deckShoe.dealCard();
+                    dealerCard = dealerCard4.getCardValue();
+                    if (dealerCard == 11) {
+                        nDealerAces++;
+                    }
+                    dealerScore += dealerCard;
+                    if (dealerScore > 21 && nDealerAces > 0) {
+                        dealerScore = dealerScore - 10;
+                        nDealerAces--;
+                    }
+                    cardForImage = dealerCard4.getCardImage();
+                    dealerCard4Image = new ImageIcon(cardForImage);
+                    dealerCard4Label.setIcon(dealerCard4Image);
+                    dealerScoreLabel.setText("Dealer Score: " + dealerScore);
+                } else if (nDealerHits == 4) {
+                    dealerCard5 = deckShoe.dealCard();
+                    dealerCard = dealerCard5.getCardValue();
+                    if (dealerCard == 11) {
+                        nDealerAces++;
+                    }
+                    dealerScore += dealerCard;
+                    if (dealerScore > 21 && nDealerAces > 0) {
+                        dealerScore = dealerScore - 10;
+                        nDealerAces--;
+                    }
+                    cardForImage = dealerCard5.getCardImage();
+                    dealerCard5Image = new ImageIcon(cardForImage);
+                    dealerCard5Label.setIcon(dealerCard5Image);
+                    dealerScoreLabel.setText("Dealer Score: " + dealerScore);
+                } else {//5
+                    dealerCard6 = deckShoe.dealCard();
+                    dealerCard = dealerCard6.getCardValue();
+                    if (dealerCard == 11) {
+                        nDealerAces++;
+                    }
+                    dealerScore += dealerCard;
+                    if (dealerScore > 21 && nDealerAces > 0) {
+                        dealerScore = dealerScore - 10;
+                        nDealerAces--;
+                    }
+                    cardForImage = dealerCard6.getCardImage();
+                    dealerCard6Image = new ImageIcon(cardForImage);
+                    dealerCard6Label.setIcon(dealerCard6Image);
+                    dealerScoreLabel.setText("Dealer Score: " + dealerScore);
                 }
-                dealerScore += dealerCard;
-                if(dealerScore > 21 && nDealerAces > 0){
-                    dealerScore = dealerScore - 10;
-                    nDealerAces--;
-                }
-                cardForImage = dealerFaceDown.getCardImage();
-                dealerFaceDownImage = new ImageIcon(cardForImage);
-                dealerCardDownLabel.setIcon(dealerFaceDownImage);
-                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
-            }else if(nDealerHits == 2){
-                dealerCard3 = deckShoe.dealCard();
-                dealerCard = dealerCard3.getCardValue();
-                if(dealerCard == 11){
-                    nDealerAces++;
-                }
-                dealerScore += dealerCard;
-                if(dealerScore > 21 && nDealerAces > 0){
-                    dealerScore = dealerScore - 10;
-                    nDealerAces--;
-                }
-                cardForImage = dealerCard3.getCardImage();
-                dealerCard3Image = new ImageIcon(cardForImage);
-                dealerCard3Label.setIcon(dealerCard3Image);
-                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
-            }else if(nDealerHits == 3){
-                dealerCard4 = deckShoe.dealCard();
-                dealerCard = dealerCard4.getCardValue();
-                if(dealerCard == 11){
-                    nDealerAces++;
-                }
-                dealerScore += dealerCard;
-                if(dealerScore > 21 && nDealerAces > 0){
-                    dealerScore = dealerScore - 10;
-                    nDealerAces--;
-                }
-                cardForImage = dealerCard4.getCardImage();
-                dealerCard4Image = new ImageIcon(cardForImage);
-                dealerCard4Label.setIcon(dealerCard4Image);
-                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
-            }else if(nDealerHits == 4){
-                dealerCard5 = deckShoe.dealCard();
-                dealerCard = dealerCard5.getCardValue();
-                if(dealerCard == 11){
-                    nDealerAces++;
-                }
-                dealerScore += dealerCard;
-                if(dealerScore > 21 && nDealerAces > 0){
-                    dealerScore = dealerScore - 10;
-                    nDealerAces--;
-                }
-                cardForImage = dealerCard5.getCardImage();
-                dealerCard5Image = new ImageIcon(cardForImage);
-                dealerCard5Label.setIcon(dealerCard5Image);
-                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
-            }else{//5
-                dealerCard6 = deckShoe.dealCard();
-                dealerCard = dealerCard6.getCardValue();
-                if(dealerCard == 11){
-                    nDealerAces++;
-                }
-                dealerScore += dealerCard;
-                if(dealerScore > 21 && nDealerAces > 0){
-                    dealerScore = dealerScore - 10;
-                    nDealerAces--;
-                }
-                cardForImage = dealerCard6.getCardImage();
-                dealerCard6Image = new ImageIcon(cardForImage);
-                dealerCard6Label.setIcon(dealerCard6Image);
-                dealerScoreLabel.setText("Dealer Score: " + dealerScore);
-            }
 
 
-            if (dealerScore > 21) {
-                dealerBusted = true;
-                bankroll.win();
-                handOutcome.setText("WON $" + betAmount);
+                if (dealerScore > 21) {
+                    dealerBusted = true;
+                    bankroll.win();
+                    handOutcome.setText("WON $" + betAmount);
+                }
             }
         }
-        endHand();
-    }
-
-    public void blackJack(){
-        betAmount = betAmount * 1.5;
-        bankroll.bet(betAmount);
         endHand();
     }
 
@@ -548,6 +550,7 @@ public class Stub extends JFrame{
         canBet = true;
         canDoubleDown = false;
         canHit = false;
+        canStay = false;
         reshuffling.setText("");
     }
 
