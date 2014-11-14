@@ -181,7 +181,6 @@ public class Stub extends JFrame{
         //mainPanel.add(rightPanel,BorderLayout.LINE_END);
         //bottomPanel.add(hitStayDoublePanel, BorderLayout.CENTER);
         leftPanel.add(betPanel, BorderLayout.PAGE_END);
-        //rightPanel.add(playerPanel, BorderLayout.PAGE_END);
         //hitStayDoublePanel.add(hit);
         //hitStayDoublePanel.add(stand);
         //hitStayDoublePanel.add(doubleDown);
