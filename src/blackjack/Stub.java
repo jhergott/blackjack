@@ -410,7 +410,14 @@ public class Stub extends JFrame{
                 //deal double down card to player
                 playerCard3 = deckShoe.dealCard();
                 playerCard = playerCard3.getCardValue();
+                if(playerCard == 11){
+                    nPlayerAces++;
+                }
                 playerScore += playerCard;
+                if(playerScore > 21 && nPlayerAces > 0){
+                    playerScore = playerScore - 10;
+                    nPlayerAces--;
+                }
                 cardForImage = playerCard3.getCardImage();
                 playerCard3Image = new ImageIcon(cardForImage);
                 playerCard3Label.setIcon(playerCard3Image);
