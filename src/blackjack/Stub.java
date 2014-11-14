@@ -84,6 +84,7 @@ public class Stub extends JFrame{
     private boolean dealerBusted;
     private boolean canDoubleDown;
     private boolean canHit;
+    private boolean canStay;
     private boolean canBet;
 
     public Stub(){
@@ -93,6 +94,7 @@ public class Stub extends JFrame{
         this.canBet = true;
         this.canDoubleDown = false;
         this.canHit = false;
+        this.canStay = false;
     }
 
     public void createComponents(){
@@ -118,8 +120,9 @@ public class Stub extends JFrame{
         playerPanel = new JPanel(new GridLayout(3,1));
         playerPanel.setBackground(Color.GREEN.darker());
         dealerCardsPanel = new JPanel();
+        dealerCardsPanel.setBackground(Color.GREEN.darker().darker());
         playerCardsPanel = new JPanel();
-
+        playerCardsPanel.setBackground(Color.GREEN.darker().darker());
 
         hit = new JButton("HIT");
         ActionListener hitListener = new HitButton();
@@ -225,6 +228,7 @@ public class Stub extends JFrame{
         dealerCard5Label.setIcon(null);
         dealerCard6Label.setIcon(null);
         canHit = true;
+        canStay = true;
         canDoubleDown = true;
         playerBusted = false;
         dealerBusted = false;
@@ -308,6 +312,7 @@ public class Stub extends JFrame{
                     System.out.println("Busted");
                     playerBusted = true;
                     stay = true;
+                    canStay = false;
                     bankroll.loss();
                     handOutcome.setText("LOSS");
                     endHand();
@@ -321,8 +326,10 @@ public class Stub extends JFrame{
 
     class StandButton implements ActionListener{
         public void actionPerformed(ActionEvent event){
-            stay = true;
-            endPlayerTurn();
+            if(canStay) {
+                stay = true;
+                endPlayerTurn();
+            }
         }
     }
 
