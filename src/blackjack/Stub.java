@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 public class Stub extends JFrame{
 
     private JPanel mainPanel;
+    private JPanel leftPanel;
+    private JPanel bottomPanel;
     private JPanel hitStayDoublePanel;
     private JPanel betPanel;
     private JPanel playerPanel;
@@ -34,6 +36,10 @@ public class Stub extends JFrame{
     private JLabel cardLabel;
     private DeckShoe deckShoe;
     private Bankroll bankroll;
+    private Card dealerFaceDown;
+    private Card dealerFaceUp;
+    private Card playerCard1;
+    private Card playerCard2;
     private double betAmount;
     private int playerScore;
     private int dealerScore;
@@ -47,7 +53,7 @@ public class Stub extends JFrame{
 
     public Stub(){
         createComponents();
-        setSize(500,500);
+        setSize(700,500);
         this.stay = false;
         this.canBet = true;
     }
@@ -56,11 +62,18 @@ public class Stub extends JFrame{
         deckShoe = new DeckShoe();
         bankroll = new Bankroll();
 
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.GREEN.darker().darker());
+        leftPanel = new JPanel(new BorderLayout());
+        leftPanel.setBackground(Color.CYAN);
+        bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.setBackground(Color.RED);
         hitStayDoublePanel = new JPanel();
+        hitStayDoublePanel.setBackground(Color.GREEN.darker());
         betPanel = new JPanel();
-        playerPanel = new JPanel();
+        betPanel.setBackground(Color.GREEN.darker());
+        playerPanel = new JPanel(new GridLayout(3,1));
+        playerPanel.setBackground(Color.GREEN.darker());
         dealerCardsPanel = new JPanel();
         playerCardsPanel = new JPanel();
 
@@ -93,16 +106,19 @@ public class Stub extends JFrame{
         cardImage = new ImageIcon(cardForImage);
         cardLabel = new JLabel(cardImage);
 
-        //mainPanel.add(dealerPanel);
-        //mainPanel.add(playerPanel);
+        mainPanel.add(leftPanel, BorderLayout.LINE_START);
+        mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
+        bottomPanel.add(hitStayDoublePanel,BorderLayout.CENTER);
+        bottomPanel.add(betPanel, BorderLayout.LINE_END);
+        bottomPanel.add(playerPanel, BorderLayout.LINE_START);
         hitStayDoublePanel.add(hit);
         hitStayDoublePanel.add(stand);
         hitStayDoublePanel.add(doubleDown);
         betPanel.add(betLabel);
         betPanel.add(betBox);
         betPanel.add(bet);
-        playerPanel.add(handOutcome);
         playerPanel.add(bankrollLabel);
+        playerPanel.add(handOutcome);
         playerPanel.add(reshuffling);
         mainPanel.add(cardLabel);
         add(mainPanel);
