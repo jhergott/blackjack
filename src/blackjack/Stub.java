@@ -15,7 +15,9 @@ import java.awt.event.ActionListener;
 public class Stub extends JFrame{
 
     private JPanel mainPanel;
+    private JPanel centerPanel;
     private JPanel leftPanel;
+    private JPanel rightPanel;
     private JPanel bottomPanel;
     private JPanel hitStayDoublePanel;
     private JPanel betPanel;
@@ -32,8 +34,14 @@ public class Stub extends JFrame{
     private JLabel handOutcome;
     private JButton bet;
     private String cardForImage;
-    private ImageIcon cardImage;
-    private JLabel cardLabel;
+    private ImageIcon dealerFaceUpImage;
+    private ImageIcon dealerFaceDownImage;
+    private ImageIcon playerCard1Image;
+    private ImageIcon playerCard2Image;
+    private JLabel dealerCardDownLabel;
+    private JLabel dealerCardUpLabel;
+    private JLabel playerCard1Label;
+    private JLabel playerCard2Label;
     private DeckShoe deckShoe;
     private Bankroll bankroll;
     private Card dealerFaceDown;
@@ -63,14 +71,20 @@ public class Stub extends JFrame{
         bankroll = new Bankroll();
 
         mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.GREEN.darker().darker());
+        mainPanel.setBackground(Color.RED);
+        centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setBackground(Color.GREEN.darker().darker());
+        rightPanel = new JPanel(new BorderLayout());
+        rightPanel.setBackground(Color.GREEN.darker());
         leftPanel = new JPanel(new BorderLayout());
-        leftPanel.setBackground(Color.CYAN);
+        leftPanel.setBackground(Color.GREEN.darker());
         bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setBackground(Color.RED);
+        dealerCardsPanel = new JPanel();
+        playerCardsPanel = new JPanel();
         hitStayDoublePanel = new JPanel();
         hitStayDoublePanel.setBackground(Color.GREEN.darker());
-        betPanel = new JPanel();
+        betPanel = new JPanel(new GridLayout(3,1));
         betPanel.setBackground(Color.GREEN.darker());
         playerPanel = new JPanel(new GridLayout(3,1));
         playerPanel.setBackground(Color.GREEN.darker());
@@ -102,15 +116,20 @@ public class Stub extends JFrame{
         handOutcome = new JLabel("    ");
 
 
-        cardForImage = deckShoe.dealCard().getCardImage();
-        cardImage = new ImageIcon(cardForImage);
-        cardLabel = new JLabel(cardImage);
+        cardForImage = "cards/b2fv.png";//faceDown
+        dealerFaceDownImage = new ImageIcon(cardForImage);
+        dealerCardDownLabel = new JLabel(dealerFaceDownImage);
+        dealerCardUpLabel = new JLabel(dealerFaceDownImage);
+        playerCard1Label = new JLabel(dealerFaceDownImage);
+        playerCard2Label = new JLabel(dealerFaceDownImage);
 
-        mainPanel.add(leftPanel, BorderLayout.LINE_START);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
         mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
-        bottomPanel.add(hitStayDoublePanel,BorderLayout.CENTER);
-        bottomPanel.add(betPanel, BorderLayout.LINE_END);
-        bottomPanel.add(playerPanel, BorderLayout.LINE_START);
+        mainPanel.add(leftPanel,BorderLayout.LINE_START);
+        mainPanel.add(rightPanel,BorderLayout.LINE_END);
+        bottomPanel.add(hitStayDoublePanel, BorderLayout.CENTER);
+        leftPanel.add(betPanel, BorderLayout.PAGE_END);
+        rightPanel.add(playerPanel, BorderLayout.PAGE_END);
         hitStayDoublePanel.add(hit);
         hitStayDoublePanel.add(stand);
         hitStayDoublePanel.add(doubleDown);
@@ -120,7 +139,12 @@ public class Stub extends JFrame{
         playerPanel.add(bankrollLabel);
         playerPanel.add(handOutcome);
         playerPanel.add(reshuffling);
-        mainPanel.add(cardLabel);
+        centerPanel.add(dealerCardsPanel, BorderLayout.PAGE_START);
+        centerPanel.add(playerCardsPanel, BorderLayout.PAGE_END);
+        dealerCardsPanel.add(dealerCardDownLabel);
+        dealerCardsPanel.add(dealerCardUpLabel);
+        playerCardsPanel.add(playerCard1Label);
+        playerCardsPanel.add(playerCard2Label);
         add(mainPanel);
 
     }
@@ -150,16 +174,34 @@ public class Stub extends JFrame{
         playerScore = 0;
         dealerScore = 0;
 
-        dealerCard = deckShoe.dealCard().getCardValue();
+        //deal Dealer's card face up
+        dealerFaceUp = deckShoe.dealCard();
+        dealerCard = dealerFaceUp.getCardValue();
         dealerScore += dealerCard;
+        cardForImage = dealerFaceUp.getCardImage();
+        dealerFaceUpImage = new ImageIcon(cardForImage);
+        dealerCardUpLabel.setIcon(dealerFaceUpImage);
         System.out.println("C1: " + dealerCard);
 
-        playerCard = deckShoe.dealCard().getCardValue();
+        //deal first card to player
+        playerCard1 = deckShoe.dealCard();
+        playerCard = playerCard1.getCardValue();
         playerScore += playerCard;
+        cardForImage = playerCard1.getCardImage();
+        playerCard1Image = new ImageIcon(cardForImage);
+        playerCard1Label.setIcon(playerCard1Image);
         System.out.println("P1: " + playerCard);
-        playerCard = deckShoe.dealCard().getCardValue();
+
+        //deal second card to player
+        playerCard2 = deckShoe.dealCard();
+        playerCard = playerCard2.getCardValue();
         playerScore += playerCard;
+        cardForImage = playerCard2.getCardImage();
+        playerCard2Image = new ImageIcon(cardForImage);
+        playerCard2Label.setIcon(playerCard2Image);
         System.out.println("P2: " + playerCard);
+
+
     }
 
     class HitButton implements ActionListener{
