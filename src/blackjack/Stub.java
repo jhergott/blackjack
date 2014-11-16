@@ -94,6 +94,8 @@ public class Stub extends JFrame{
     private boolean canBet;
     private boolean blackJack;
 
+    private JButton reload;
+
     public Stub(){
         createComponents();
         setSize(700,500);
@@ -125,7 +127,7 @@ public class Stub extends JFrame{
         playerCardsPanel = new JPanel();
         hitStayDoublePanel = new JPanel();
         hitStayDoublePanel.setBackground(Color.GREEN.darker());
-        betPanel = new JPanel(new GridLayout(9,1));
+        betPanel = new JPanel(new GridLayout(10,1));
         betPanel.setBackground(Color.GREEN.darker());
         playerPanel = new JPanel(new GridLayout(2,1));
         playerPanel.setBackground(Color.GREEN.darker().darker());
@@ -147,7 +149,7 @@ public class Stub extends JFrame{
         doubleDown.addActionListener(doubleDownListener);
 
         betBox = new JTextField(6);
-        bet = new JButton("BET");
+        bet = new JButton("Bet");
         ActionListener betListener = new BetButton();
         bet.addActionListener(betListener);
         betBox.addActionListener(betListener);
@@ -175,6 +177,11 @@ public class Stub extends JFrame{
         dealerCard5Label = new JLabel();
         dealerCard6Label = new JLabel();
 
+        reload = new JButton("Reload");
+        ActionListener reloadListener = new ReloadButton();
+        reload.addActionListener(reloadListener);
+
+
         mainPanel.add(centerPanel, BorderLayout.CENTER);
         mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
         mainPanel.add(leftPanel,BorderLayout.LINE_START);
@@ -190,6 +197,7 @@ public class Stub extends JFrame{
         betPanel.add(betLabel);
         betPanel.add(betBox);
         betPanel.add(bet);
+        betPanel.add(reload);
         betPanel.add(hit);
         betPanel.add(stand);
         betPanel.add(doubleDown);
@@ -213,6 +221,17 @@ public class Stub extends JFrame{
         playerCardsPanel.add(playerCard6Label);
         add(mainPanel);
 
+    }
+
+    class ReloadButton implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+            if(canBet) {
+                if (bankroll.getBankroll() <= 1000) {
+                    bankroll.setBankroll(1000);
+                    bankrollLabel.setText("Bankroll: $" + bankroll.getBankroll());
+                }
+            }
+        }
     }
 
     class BetButton implements ActionListener{

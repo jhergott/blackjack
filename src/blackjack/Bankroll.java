@@ -16,6 +16,10 @@ public class Bankroll {
         return bankroll;
     }
 
+    public void setBankroll(double bankroll) {
+        this.bankroll = bankroll;
+    }
+
     public void bet(double b){
         bet = b;
     }
